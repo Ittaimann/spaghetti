@@ -1,4 +1,5 @@
 const std = @import("std");
+const glfw = @import("external/mach-glfw/build.zig");
 
 pub fn build(b: *std.build.Builder) void {
     // Standard target options allows the person running `zig build` to choose
@@ -12,6 +13,11 @@ pub fn build(b: *std.build.Builder) void {
     const mode = b.standardReleaseOptions();
 
     const exe = b.addExecutable("spaghetti", "src/main.zig");
+    exe.addPackagePath("glfw", "external/mach-glfw/src/main.zig");
+    glfw.link(b, exe, .{});
+
+    exe.linkLibC();
+
     exe.setTarget(target);
     exe.setBuildMode(mode);
     exe.install();

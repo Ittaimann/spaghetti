@@ -1,9 +1,14 @@
 const std = @import("std");
+const glfw = @import("glfw");
 
-pub fn main() anyerror!void {
-    std.log.info("All your codebase are belong to us.", .{});
-}
+pub fn main() !void {
+    try glfw.init(.{});
+    defer glfw.terminate();
 
-test "basic test" {
-    try std.testing.expectEqual(10, 3 + 7);
+    const window = try glfw.Window.create(640, 480, "hello, mach", null, null, .{});
+    defer window.destroy();
+
+    while (!window.shouldClose()) {
+        try glfw.pollEvents();
+    }
 }
