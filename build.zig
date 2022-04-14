@@ -17,6 +17,9 @@ pub fn build(b: *std.build.Builder) void {
     glfw.link(b, exe, .{});
 
     exe.linkLibC();
+    exe.addSystemIncludeDir("C:/VulkanSDK/1.2.148.1/");
+    exe.addLibPath("C:/VulkanSDK/1.2.148.1/lib/");
+    exe.linkSystemLibrary("vulkan-1");
 
     exe.setTarget(target);
     exe.setBuildMode(mode);
